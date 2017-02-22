@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title><DASHBOARD_TITLE></title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="pdf_viewer.css">
+    <script src="compatibility.js"></script>
+    <script src="pdf.js"></script>
+    <script src="pdf_viewer.js"></script>
+
+    <script>
+      var showPDF = function(pdfURL) {
+        PDFJS.workerSrc = 'pdf.worker.js';
+        var targetDiv = document.getElementById('pdfDiv');
+        var pdfViewer = new PDFJS.PDFViewer({ container: targetDiv });
+        PDFJS.getDocument(pdfURL).then(function (pdfDocument) {
+          pdfViewer.setDocument(pdfDocument);
+        });
+      }
+
+      var connect = function() {
+        console.log('connecting');
+        socket = new io.connect('<URL_TYPE>://' + window.location.host);
+        socket.on('message', function(pdfURL) {
+          console.log(pdfURL);
+          showPDF(pdfURL);
+        });
+      }
+    </script>
+  </head>
+
+  <body onload="connect()">
+    <div id="pdfDiv">
+      <div id="viewer" class="pdfViewer"></div>
+    </div>
+  </body>
+</html>
