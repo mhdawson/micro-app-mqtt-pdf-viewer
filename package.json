@@ -11,7 +11,8 @@
     "micro-app-framework": "^0.1.1",
     "socket.io": "~1.3.7",
     "mqtt": "~1.6.3",
-    "pdfjs-dist" : "~1.7.308"
+    "pdfjs-dist" : "~1.7.308",
+    "pdfkit" : "~0.8.0"
   },
   "repository": {
     "type": "git",
